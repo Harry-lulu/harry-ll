@@ -1,6 +1,15 @@
 /**
- * unit测试，以合约中的每个方法为单位，确保都可以正常运行
  *
+ * test 来测试合约功能是否符合预期
+ * describe是一个关键字，Hardhat的 Mocha将会识别它
+ *
+ * beforeEach 是在每个it执行之前执行，
+ *  可以有很多的it, it里就是编写运行测试的地方
+ *
+ * gas 花费报告， 安装：npm install hardhat-gas-reporter --save-dev
+ *  hardhat.config.js 配置 gasReporter
+ *
+ * unit测试，以合约中的每个方法为单位，确保都可以正常运行
  * Terminal 执行： yarn hardhat test
  * describe是一个关键字，Hardhat的 Mocha将会识别它
  *
@@ -136,6 +145,9 @@ const { developmentChains } = require("../../helper-hardhat-config");
             );
           }
         });
+        // it.only 会只验证此处it
+        // 或者使用 yarn hardhat test --grep "xxx" ; 只运行 内容包含‘xxx’的 it
+        //it.only("Only allows the owner to withdraw", async function () {
         it("Only allows the owner to withdraw", async function () {
           const accounts = await ethers.getSigners();
           const fundMeConnectedContract = await fundMe.connect(accounts[1]);
